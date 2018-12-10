@@ -25,7 +25,7 @@ class Login {
                 // console.log('Login : ' + login.val());
                 // Est-ce que les deux champs sont remplis ?
 
-                if (login.val() !== '' && password.val() !== ''){
+                if (login.val().length >= 5 && password.val() !== ''){
                     //On peut activer le bouton
                     $('#btnLogin').removeAttr('disabled');
                 }
