@@ -55,6 +55,7 @@ class Login {
                 user.setPassword(password.val());
                 if (user.authentification()) {
                     console.log('Oki, tu peux y aller :):)');
+                    const menu = new Menu(user);
                 } else {
                     console.log('Tu bluffes Martoni !');
                     login.val('');

@@ -17,7 +17,10 @@ class User {
     setUserName(userName) {
         this.userName = userName;
     }
-
+    
+    getUserName() {
+       return this.userName;
+    }
     /**
      * Définit le mdp de l'utilisateur
      * @param {*} password
