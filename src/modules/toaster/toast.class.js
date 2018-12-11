@@ -6,8 +6,8 @@
  */
 class Toast {
 
-    constructor(params) {
-        if (!params.hasOwnProperty('background')) {
+    constructor(params) { // params est un objet "json", que l'on déclare entre accolades 
+        if (!params.hasOwnProperty('background')) { // recherche dans les attirbuts de l'objet 'params' 'background' 
             //Definition de la couleur du fond du toast
             this.backgroundClass = 'danger';
         }
@@ -15,7 +15,7 @@ class Toast {
             this.backgroundClass = params.background
         }
 
-        if (!params.hasOwnProperty('duration')) {
+        if (!params.hasOwnProperty('duration')) { // ! = NOT
             //Durée d'affichage du toast (en milisecondes)
             this.duration = 3;
         }
@@ -23,15 +23,15 @@ class Toast {
         else {
             this.duration = params.duration;
         }
-        if(!params.hasOwnProperty('message')){
-        this.message = 'Default Message'
-        }else{
+        if (!params.hasOwnProperty('message')) {
+            this.message = 'Default Message'
+        } else {
             this.message = params.message;
         }
     }
 
     setBackgroundClass(cssClass) {
-        this.backgroungClass = cssClass;
+        this.backgroundClass = cssClass;
     }
 
     setDuration() {
@@ -42,9 +42,9 @@ class Toast {
         const toaster = $('<div>'); // Création d'un nouvel objet <div> en mémoire
         //On lui ajoute les classes
         toaster
-            .addClass('toast')
-            .addClass(this.backgroungClass)
-            .html(this.message);
+            .addClass('toast') // Ajoute la classe CSS .toast dans le <div>
+            .addClass(this.backgroundClass)
+            .html(this.message); // Ajoute un message dans le <div>
 
         //Ajoute toaster à l'élément 'body'
         toaster.appendTo($('body'));

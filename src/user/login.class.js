@@ -67,7 +67,7 @@ class Login {
                     const toast = new Toast(
                         {
                             'message': 'Ce login ou se mot de passe n\'existe pas.',
-                            'duration': 2
+                            'duration': 2 // Les côtes c'est juste pour bien dire que c'est un nouvel attribut (au cas où le "duration" existerait déjà)
                         }
                     );
                     toast.toastIt();
