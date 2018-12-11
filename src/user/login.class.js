@@ -59,6 +59,18 @@ class Login {
                     console.log('Tu bluffes Martoni !');
                     login.val('');
                     password.val('');
+
+                    $('#btnLogin').attr('disabled', 'disabled');
+
+
+                    //On peut instancier un toast.
+                    const toast = new Toast(
+                        {
+                            'message': 'Ce login ou se mot de passe n\'existe pas.',
+                            'duration': 2
+                        }
+                    );
+                    toast.toastIt();
                 }
             }
         );
