@@ -7,7 +7,7 @@
  */
 
 class User {
-    constructor() {}
+    constructor() { }
 
 
     /**
@@ -17,9 +17,9 @@ class User {
     setUserName(userName) {
         this.userName = userName;
     }
-    
+
     getUserName() {
-       return this.userName;
+        return this.userName;
     }
     /**
      * Définit le mdp de l'utilisateur

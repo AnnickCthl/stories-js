@@ -10,19 +10,17 @@ class Toast {
         if (!params.hasOwnProperty('background')) { // recherche dans les attirbuts de l'objet 'params' 'background' 
             //Definition de la couleur du fond du toast
             this.backgroundClass = 'danger';
-        }
-        else {
+        } else {
             this.backgroundClass = params.background
         }
 
         if (!params.hasOwnProperty('duration')) { // ! = NOT
             //Durée d'affichage du toast (en milisecondes)
             this.duration = 3;
-        }
-
-        else {
+        } else {
             this.duration = params.duration;
         }
+
         if (!params.hasOwnProperty('message')) {
             this.message = 'Default Message'
         } else {
