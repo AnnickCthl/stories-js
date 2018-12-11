@@ -6,7 +6,7 @@
  * 
  */
 
-class User {
+export class User {
     constructor() { }
 
 

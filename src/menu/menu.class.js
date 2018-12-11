@@ -5,7 +5,7 @@
  * @version 1.0.0
  */
 
-class Menu {
+export class Menu {
     constructor(user) {
         $('[Id="navbarDropdown"]').html(user.getUserName());
         $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton

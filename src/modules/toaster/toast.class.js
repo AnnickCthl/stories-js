@@ -4,7 +4,7 @@
  * @author Aelion
  * @version 1.0.0
  */
-class Toast {
+export class Toast {
 
     constructor(params) { // params est un objet "json", que l'on déclare entre accolades 
         if (!params.hasOwnProperty('background')) { // recherche dans les attirbuts de l'objet 'params' 'background' 
