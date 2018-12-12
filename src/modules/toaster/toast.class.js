@@ -61,7 +61,6 @@ export class Toast {
                     },
                     (this.duration / 2) * 1000
                 ); // Au bout de 3s, entre dans "function"
-             //   toaster.remove();
             },
             this.duration * 1000
         ); // Au bout de 3s, entre dans "function"

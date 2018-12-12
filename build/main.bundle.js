@@ -98,6 +98,10 @@
 
 var _login = __webpack_require__(/*! ./../../src/user/login.class */ "./src/user/login.class.js");
 
+var _loginController = __webpack_require__(/*! ../../src/user/login/login.Controller.class */ "./src/user/login/login.Controller.class.js");
+
+var _storiesController = __webpack_require__(/*! ../../src/stories/storiesController.class */ "./src/stories/storiesController.class.js");
+
 var title = document.getElementById('main-title'); /**
                                                     * @name main.js
                                                     * @description Point d'entrée principal dans l'application JS.
@@ -105,8 +109,15 @@ var title = document.getElementById('main-title'); /**
 
 title.innerHTML = 'Hello Javascript !';
 
+//@version 1.0.1 Passage par contrôleur
+var controller = new _loginController.LoginController();
+controller.getView();
+
 //Créer une instance de Login
 var login = new _login.Login();
+
+//const stories = new StoriesController();
+//stories.getView();
 
 /***/ }),
 
@@ -224,12 +235,66 @@ var Toast = exports.Toast = function () {
                 setTimeout(function () {
                     toaster.removeClass('bounceInRight').addClass('bounceOutLeft');
                 }, this.duration / 2 * 1000); // Au bout de 3s, entre dans "function"
-                //   toaster.remove();
             }, this.duration * 1000); // Au bout de 3s, entre dans "function"
         }
     }]);
 
     return Toast;
+}();
+
+/***/ }),
+
+/***/ "./src/stories/storiesController.class.js":
+/*!************************************************!*\
+  !*** ./src/stories/storiesController.class.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name StoriesController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var StoriesController = exports.StoriesController = function () {
+    function StoriesController() {
+        _classCallCheck(this, StoriesController);
+
+        this.view = './src/stories/views/stories.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(StoriesController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return StoriesController;
 }();
 
 /***/ }),
@@ -264,8 +329,6 @@ var Login = exports.Login = function () {
         _classCallCheck(this, Login);
 
         // Déclaration attributs :
-        this.login = $('[name="loginField"]');
-        this.password = $('[name="passwordField"]');
 
         //Modifier le document HTML
         $(document).attr('title', 'Identification'); // Dans le document .html, trouve moi l'attribut Title et remplace-le part "Identification"
@@ -287,12 +350,15 @@ var Login = exports.Login = function () {
     _createClass(Login, [{
         key: 'formListener',
         value: function formListener() {
-            var login = this.login;
-            var password = this.password;
-            $('#loginForm').on( //Place moi un gestionnaire d'événement sur le formulaire "loginForm"
+            var app = $('[app]');
+
+            app.on( //Place moi un gestionnaire d'événement sur le formulaire "loginForm"
             'keyup', //Nom de l'événement
+            '#loginForm',
             //callback fonction appellée si l'événement survient. LE "THIS" N'EST PAS DISPO DANS LE CALL BACK
             function (event) {
+                var login = $('[name="loginField"]');
+                var password = $('[name="passwordField"]');
                 //Il faut vérifier que les 2 champs ne sont pas vides pour activer le bouton.
                 // console.log('Login : ' + login.val());
                 // Est-ce que les deux champs sont remplis ?
@@ -308,9 +374,11 @@ var Login = exports.Login = function () {
     }, {
         key: 'submitListener',
         value: function submitListener() {
-            var login = this.login;
-            var password = this.password;
-            $('#loginForm').on('submit', function (event) {
+            var app = $('[app]');
+            app.on('submit', '#loginForm', function (event) {
+                var login = $('[name="loginField"]');
+                var password = $('[name="passwordField"]');
+
                 event.preventDefault(); //Empêche l'action par défaut.
                 var user = new _user.User();
                 user.setUserName(login.val());
@@ -337,6 +405,61 @@ var Login = exports.Login = function () {
     }]);
 
     return Login;
+}();
+
+/***/ }),
+
+/***/ "./src/user/login/login.Controller.class.js":
+/*!**************************************************!*\
+  !*** ./src/user/login/login.Controller.class.js ***!
+  \**************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LoginController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var LoginController = exports.LoginController = function () {
+    function LoginController() {
+        _classCallCheck(this, LoginController);
+
+        this.view = './src/user/login/views/loginForm.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(LoginController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return LoginController;
 }();
 
 /***/ }),
