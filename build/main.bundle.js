@@ -185,6 +185,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _route = __webpack_require__(/*! ./route.class */ "./src/modules/router/route.class.js");
 
+var _loginController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './../../src/user/login/loginController.class'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _storiesController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './../../src/stories/storiesController.class'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+var _userServices = __webpack_require__(/*! ./../../services/user-services.class */ "./src/services/user-services.class.js");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Router = exports.Router = function () {
@@ -210,12 +216,83 @@ var Router = exports.Router = function () {
         key: 'getRoute',
         value: function getRoute() {
             var url = location.hash.slice(1) || '/';
-            console.log('Routes définies : ' + this.routes.size + '[' + url + ']');
+            console.log('URL à charger [' + url + ']');
+            //On va essayer de chercher si dans les routes, on a quelque chose qui correspond
+            var route = this.routes.get(url);
+            if (route) {
+                //Aucun controlleur associé à cette route
+            } else {
+                if (url === '/') {
+                    var _UserService = new _UserService();
+                    if (_UserService.hasUser()) {
+                        //S'il y a un utilisateur identifié
+                        var controller = new _storiesController.StoriesController();
+                    } else {
+                        var _controller = new _loginController.LoginController();
+                    }
+                } else {
+                    // La route définie est autre chose
+                    var _controller2 = new window[route.getController()]();
+                }
+            }
+
             return this.routes.get(url) ? this.routes.get(url) : this.routes.get('/');
         }
     }]);
 
     return Router;
+}();
+
+/***/ }),
+
+/***/ "./src/services/user-services.class.js":
+/*!*********************************************!*\
+  !*** ./src/services/user-services.class.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name UserService
+ * @desc Service de gestion de persistence des données
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var UserService = exports.UserService = function () {
+    function UserService() {
+        _classCallCheck(this, UserService);
+    }
+
+    /**
+     * Lit localStorage pour récupérer un éventuel utilisateur
+     * @return boolean
+     */
+
+
+    _createClass(UserService, [{
+        key: 'hasUser',
+        value: function hasUser() {
+            var user = JSON.parse(localStorage.getItem('storiesUser')); // JSON.parse prend une chaîne, la convertie en objet
+            if (user) {
+                return true;
+            }
+            return false;
+        }
+    }]);
+
+    return UserService;
 }();
 
 /***/ })

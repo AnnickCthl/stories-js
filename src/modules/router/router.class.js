@@ -5,6 +5,9 @@
  * @version 1.0.0
  */
 import { Route } from './route.class';
+import { LoginController } from './../../src/user/login/loginController.class';
+import { StoriesController } from './../../src/stories/storiesController.class';
+import { UserService } from './../../services/user-services.class';
 export class Router {
 
     constructor() {
@@ -28,7 +31,27 @@ export class Router {
 
     getRoute() {
         const url = location.hash.slice(1) || '/';
-        console.log('Routes définies : ' + this.routes.size + '[' + url + ']');
+        console.log('URL à charger [' + url + ']');
+        //On va essayer de chercher si dans les routes, on a quelque chose qui correspond
+        const route = this.routes.get(url);
+        if (route) {
+            //Aucun controlleur associé à cette route
+        } else {
+            if (url === '/') {
+                const UserService = new UserService();
+                if (UserService.hasUser()) {
+                    //S'il y a un utilisateur identifié
+                    const controller = new StoriesController();
+
+                } else {
+                    const controller = new LoginController();
+                }
+            } else {
+                // La route définie est autre chose
+                const controller = new (window)[route.getController()]();
+            }
+        }
+
         return this.routes.get(url) ? this.routes.get(url) : this.routes.get('/');
     }
 
