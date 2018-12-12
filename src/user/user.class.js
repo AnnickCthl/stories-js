@@ -36,9 +36,18 @@ export class User {
     authentification() {
         if (this.userName === 'acath' && this.password === 'a') {
             this.group = 'Administrateur';
+
+            // Ajout de l'utilisateur dans localStorage, cela ne stocke que des chaînes de caractère
+            const persistentUser = {
+                userName: this.userName,
+                group: this.group
+            };
+
+            localStorage.setItem('storiesUser', JSON.stringify(persistentUser));
+
             return true;
         }
         return false;
     }
 
-}
+}//fin de classe
