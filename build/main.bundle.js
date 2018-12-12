@@ -96,28 +96,78 @@
 "use strict";
 
 
-var _login = __webpack_require__(/*! ./../../src/user/login.class */ "./src/user/login.class.js");
+var _login3 = __webpack_require__(/*! ./../../src/user/login.class */ "./src/user/login.class.js");
 
 var _loginController = __webpack_require__(/*! ../../src/user/login/login.Controller.class */ "./src/user/login/login.Controller.class.js");
 
 var _storiesController = __webpack_require__(/*! ../../src/stories/storiesController.class */ "./src/stories/storiesController.class.js");
 
-var title = document.getElementById('main-title'); /**
-                                                    * @name main.js
-                                                    * @description Point d'entrée principal dans l'application JS.
-                                                    */
+var _userServices = __webpack_require__(/*! ../../src/services/user-services.class */ "./src/services/user-services.class.js");
 
+/**
+ * @name main.js
+ * @description Point d'entrée principal dans l'application JS.
+ */
+var title = document.getElementById('main-title');
 title.innerHTML = 'Hello Javascript !';
 
-//@version 1.0.1 Passage par contrôleur
-var controller = new _loginController.LoginController();
-controller.getView();
+$(window).on('hashchange', //Quand la page change d'URL
+function (event) {
+    var url = this.document.location.hash;
+    console.log('Nouvelle URL : ' + document.location.hash);
 
-//Créer une instance de Login
-var login = new _login.Login();
+    if (url === '#/mystories') {
 
-//const stories = new StoriesController();
-//stories.getView();
+        //@version 1.0.1 Passage par contrôleur
+        var authGuard = new _userServices.UserService();
+        if (!authGuard.hasUser()) {
+            var controller = new _loginController.LoginController();
+            controller.getView();
+
+            //Créer une instance de Login
+            var login = new _login3.Login();
+        } else {
+            var stories = new _storiesController.StoriesController();
+            stories.getView();
+        }
+    } else {
+
+        var _controller = new _loginController.LoginController();
+        _controller.getView();
+
+        //Créer une instance de Login
+        var _login = new _login3.Login();
+    }
+});
+
+$(window).on('load', //Quand la page est chargée
+function (event) {
+    var url = this.document.location.hash;
+    console.log('Nouvelle URL : ' + document.location.hash);
+
+    if (url === '#/mystories') {
+
+        //@version 1.0.1 Passage par contrôleur
+        var authGuard = new _userServices.UserService();
+        if (!authGuard.hasUser()) {
+            var controller = new _loginController.LoginController();
+            controller.getView();
+
+            //Créer une instance de Login
+            var login = new _login3.Login();
+        } else {
+            var stories = new _storiesController.StoriesController();
+            stories.getView();
+        }
+    } else {
+
+        var _controller2 = new _loginController.LoginController();
+        _controller2.getView();
+
+        //Créer une instance de Login
+        var _login2 = new _login3.Login();
+    }
+});
 
 /***/ }),
 
@@ -240,6 +290,58 @@ var Toast = exports.Toast = function () {
     }]);
 
     return Toast;
+}();
+
+/***/ }),
+
+/***/ "./src/services/user-services.class.js":
+/*!*********************************************!*\
+  !*** ./src/services/user-services.class.js ***!
+  \*********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name UserService
+ * @desc Service de gestion de persistence des données
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var UserService = exports.UserService = function () {
+    function UserService() {
+        _classCallCheck(this, UserService);
+    }
+
+    /**
+     * Lit localStorage pour récupérer un éventuel utilisateur
+     * @return boolean
+     */
+
+
+    _createClass(UserService, [{
+        key: 'hasUser',
+        value: function hasUser() {
+            var user = JSON.parse(localStorage.getItem('storiesUser')); // JSON.parse prend une chaîne, la convertie en objet
+            if (user) {
+                return true;
+            }
+            return false;
+        }
+    }]);
+
+    return UserService;
 }();
 
 /***/ }),
@@ -386,6 +488,10 @@ var Login = exports.Login = function () {
                 if (user.authentification()) {
                     console.log('Oki, tu peux y aller :):)');
                     var menu = new _menu.Menu(user);
+
+                    // On va essayer d'aller vers une autre page
+                    document.location.replace('#/mystories'); // Change l'URL
+
                 } else {
                     console.log('Tu bluffes Martoni !');
                     login.val('');

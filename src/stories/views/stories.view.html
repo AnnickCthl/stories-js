@@ -1,37 +1,80 @@
- <table class="table">
-    <thead>
+<div class="row">
+  <div class="col-md-6">
+      <span class="badge">10</span> en cours
+  </div>
+
+  <div class="col-md-6">
+      <span class="badge">5</span> terminées
+  </div>
+</div>
+
+<!-- Le tableau récapitulatif des stories -->
+<table class="table table-condensed table-striped table-responsive">
+  <thead>
       <tr>
-        <th scope="col">Id</td>
-        <th scope="col">Titre</td>
-        <th scope="col">Début</td>
-        <th scope="col">Fin prévue</td>
-            <th scope="col">Business Value</td>
+          <th>Id</th>
+          <th>Titre</th>
+          <th>Début</th>
+          <th>Fin</th>
+          <th>Business value</th>
+          <th>Action</th>
       </tr>
-    </thead>
-    <tbody>
+  </thead>
+
+  <tbody>
       <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td></td>
-        <td></td>
-        <td></td>
+          <td>1</td>
+          <td>Terminer les contrôleurs</td>
+          <td>12-12-2018</td>
+          <td>12-12-2018</td>
+          <td>3</td>
+          <td>
+              <i class="icon-switch done"></i>
+              <i class="icon-bin2 delete"></i>
+          </td>
       </tr>
       <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td></td>
-        <td></td>
-        <td></td>
+          <td>2</td>
+          <td>Ajouter les glyphicons</td>
+          <td>12-12-2018</td>
+          <td>12-12-2018</td>
+          <td>1</td>
+          <td>
+              <i class="icon-switch done"></i>
+              <i class="icon-bin2 delete"></i>
+          </td>
       </tr>
-    </tbody>
-  </table>
+      <tr>
+          <td>3</td>
+          <td>Créer un routeur</td>
+          <td>12-12-2018</td>
+          <td>12-12-2018</td>
+          <td>5</td>
+          <td>
+              <i class="icon-switch done"></i>
+              <i class="icon-bin2 delete"></i>
+          </td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>Passer à TypeScript</td>
+          <td>12-12-2018</td>
+          <td>12-12-2018</td>
+          <td>5</td>
+          <td>
+              <i class="icon-switch done"></i>
+              <i class="icon-bin2 delete"></i>
+          </td>
+      </tr>           
+  </tbody>
+
+  <tfoot>
+      <tr>
+          <td colspan="6">
+              <button type="button" class="btn btn-outline-default">
+                  Nouvelle Story
+              </button>
+          </td>
+      </tr>
+  </tfoot>
+</table>

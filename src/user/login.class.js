@@ -62,6 +62,12 @@ export class Login {
                 if (user.authentification()) {
                     console.log('Oki, tu peux y aller :):)');
                     const menu = new Menu(user);
+
+
+                    // On va essayer d'aller vers une autre page
+                    document.location.replace('#/mystories') // Change l'URL
+
+
                 } else {
                     console.log('Tu bluffes Martoni !');
                     login.val('');
