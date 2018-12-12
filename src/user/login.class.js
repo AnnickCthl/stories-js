@@ -1,23 +1,19 @@
-import {User} from './user.class';
-import {Menu} from './../menu/menu.class';
-import {Toast} from './../modules/toaster/toast.class';
+import { User } from './user.class';
+import { Menu } from './../menu/menu.class';
+import { Toast } from './../modules/toaster/toast.class';
 
 export class Login {
     constructor() {
         // Déclaration attributs :
-        this.login = $('[name="loginField"]');
-        this.password = $('[name="passwordField"]');
 
         //Modifier le document HTML
         $(document).attr('title', 'Identification') // Dans le document .html, trouve moi l'attribut Title et remplace-le part "Identification"
         // Modifier le titre de la page (le h1 qui porte l'Id main-title)
         $('#main-title').html('Identifiez-vous')
 
-
         //Définir du listener sur le formulaire
         this.formListener();
         this.submitListener();
-
     }
 
     /**
@@ -26,12 +22,15 @@ export class Login {
      * @return void
      */
     formListener() {
-        let login = this.login;
-        let password = this.password;
-        $('#loginForm').on(  //Place moi un gestionnaire d'événement sur le formulaire "loginForm"
+        const app = $('[app]');
+
+        app.on(  //Place moi un gestionnaire d'événement sur le formulaire "loginForm"
             'keyup', //Nom de l'événement
+            '#loginForm',
             //callback fonction appellée si l'événement survient. LE "THIS" N'EST PAS DISPO DANS LE CALL BACK
             function (event) {
+                let login = $('[name="loginField"]');
+                let password = $('[name="passwordField"]');
                 //Il faut vérifier que les 2 champs ne sont pas vides pour activer le bouton.
                 // console.log('Login : ' + login.val());
                 // Est-ce que les deux champs sont remplis ?
@@ -48,11 +47,14 @@ export class Login {
     }
 
     submitListener() {
-        let login = this.login;
-        let password = this.password;
-        $('#loginForm').on(
+        const app = $('[app]');
+        app.on(
             'submit',
+            '#loginForm',
             function (event) {
+                let login = $('[name="loginField"]');
+                let password = $('[name="passwordField"]');
+
                 event.preventDefault(); //Empêche l'action par défaut.
                 const user = new User();
                 user.setUserName(login.val());
