@@ -11,7 +11,7 @@ left: 50%;
 }
 
 .toast.danger {
-background-color: rgba(200, 19, 19, 0.5);
+background-color: rgba(200, 19, 19, 0.8);
 color: rgb(3, 3, 3);
 border: solid 1px #fff;
 }

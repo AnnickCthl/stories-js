@@ -213,7 +213,7 @@ var Toast = exports.Toast = function () {
             var toaster = $('<div>'); // Création d'un nouvel objet <div> en mémoire
             //On lui ajoute les classes
             toaster.addClass('toast') // Ajoute la classe CSS .toast dans le <div>
-            .addClass(this.backgroundClass).html(this.message); // Ajoute un message dans le <div>
+            .addClass(this.backgroundClass).addClass('animated').addClass('bounceInRight').html(this.message); // Ajoute un message dans le <div>
 
             //Ajoute toaster à l'élément 'body'
             toaster.appendTo($('body'));
@@ -221,7 +221,10 @@ var Toast = exports.Toast = function () {
             //Affihage pendant un certain temps
             setTimeout(function () {
                 //Quand on arrive au bout de l'intervalle de temps
-                toaster.remove();
+                setTimeout(function () {
+                    toaster.removeClass('bounceInRight').addClass('bounceOutLeft');
+                }, this.duration / 2 * 1000); // Au bout de 3s, entre dans "function"
+                //   toaster.remove();
             }, this.duration * 1000); // Au bout de 3s, entre dans "function"
         }
     }]);
