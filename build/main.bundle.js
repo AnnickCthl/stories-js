@@ -185,9 +185,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _route = __webpack_require__(/*! ./route.class */ "./src/modules/router/route.class.js");
 
-var _loginController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './../../src/user/login/loginController.class'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var _loginController = __webpack_require__(/*! ../../user/login/loginController.class */ "./src/user/login/loginController.class.js");
 
-var _storiesController = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module './../../src/stories/storiesController.class'"); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+var _storiesController = __webpack_require__(/*! ../../stories/storiesController.class */ "./src/stories/storiesController.class.js");
 
 var _userServices = __webpack_require__(/*! ./../../services/user-services.class */ "./src/services/user-services.class.js");
 
@@ -293,6 +293,116 @@ var UserService = exports.UserService = function () {
     }]);
 
     return UserService;
+}();
+
+/***/ }),
+
+/***/ "./src/stories/storiesController.class.js":
+/*!************************************************!*\
+  !*** ./src/stories/storiesController.class.js ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name StoriesController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var StoriesController = exports.StoriesController = function () {
+    function StoriesController() {
+        _classCallCheck(this, StoriesController);
+
+        this.view = './src/stories/views/stories.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(StoriesController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return StoriesController;
+}();
+
+/***/ }),
+
+/***/ "./src/user/login/loginController.class.js":
+/*!*************************************************!*\
+  !*** ./src/user/login/loginController.class.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LoginController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var LoginController = exports.LoginController = function () {
+    function LoginController() {
+        _classCallCheck(this, LoginController);
+
+        this.view = './src/user/login/views/loginForm.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(LoginController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return LoginController;
 }();
 
 /***/ })

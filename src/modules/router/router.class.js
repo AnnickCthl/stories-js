@@ -5,8 +5,8 @@
  * @version 1.0.0
  */
 import { Route } from './route.class';
-import { LoginController } from './../../src/user/login/loginController.class';
-import { StoriesController } from './../../src/stories/storiesController.class';
+import { LoginController } from '../../user/login/loginController.class';
+import { StoriesController } from '../../stories/storiesController.class';
 import { UserService } from './../../services/user-services.class';
 export class Router {
 
