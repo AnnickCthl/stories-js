@@ -12,5 +12,5 @@ router
 .add (
     new Route('/', 'LoginController')
 )
-.add (new Route('/mystories', 'MyStories')
+.add (new Route('/mystories', 'StoriesController')
 );
