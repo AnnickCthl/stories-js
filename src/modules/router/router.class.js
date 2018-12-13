@@ -8,10 +8,13 @@ import { Route } from './route.class';
 import { LoginController } from '../../user/login/loginController.class';
 import { StoriesController } from '../../stories/storiesController.class';
 import { UserService } from './../../services/user-services.class';
+import {NoRouteCont} from './noRouteCont.class';
+import {LogOutController} from '../../user/logoutController.class';
 
 const controllers = { //Contient touts les classes "Controller".
     LoginController,
     StoriesController,
+    LogOutController,
 }
 
 export class Router {
@@ -53,6 +56,10 @@ export class Router {
         
         if (!route) {
             // Aucun contrôleur associé à cette route
+            console.log('Je passe par là');
+            controller = new NoRouteCont();
+       
+          
         } else {
             if (url === '/') {
                 // On vérifie l'utilisateur
@@ -83,7 +90,9 @@ export class Router {
                 }
             }
             // A la fin, on charge la vue
-            controller.getView();
+            
         }
+        console.log('Je passe par le getView');
+        controller.getView();
     }
 }

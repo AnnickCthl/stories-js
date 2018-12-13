@@ -1,16 +1,20 @@
 /**
- * @name LoginController
+ * @name LogOutController
  * @desc Contrôleur pour la gestion du formulaire de login
  * @author Aelion
  * @version 1.0.0
  */
-import {Login} from '../login.class'
-export class LoginController {
+import { Login } from '../../src/user/login.class';
+
+export class LogOutController {
     constructor() {
+        localStorage.clear();
+        console.log('Deconnexion !')
         this.view = './src/user/login/views/loginForm.view.html' //Ici "view" est une chaîne de caractère et on rentre l'URL
-    
+
         // Intancie la classe login pour la gestion du formulaire
-        this.login = new Login();
+        //this.login = new Login();
+       
     }
 
     /**

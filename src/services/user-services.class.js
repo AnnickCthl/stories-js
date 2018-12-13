@@ -15,11 +15,19 @@ export class UserService {
      */
     hasUser() {
         const user = JSON.parse(localStorage.getItem('storiesUser')); // JSON.parse prend une chaîne, la convertie en objet
-        if (user){
+        if (user) {
             return true;
         }
         return false;
     }
 
+    getUser() {
+        const localUser = JSON.parse(localStorage.getItem('storiesUser'));
+        const user = new User();
+        user.steUserName(localUser.userName)
+        user.group = localUser.group;
+        return user;
+
+    }
 
 }
