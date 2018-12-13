@@ -8,6 +8,7 @@
 export class StoriesController {
     constructor() {
         this.view = './src/stories/views/stories.view.html' //Ici "view" est une chaîne de caractère et on rentre l'URL
+
     }
 
     /**
