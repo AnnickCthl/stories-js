@@ -122,7 +122,7 @@ router.add(new _route.Route('/', 'LoginController')).add(new _route.Route('/myst
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -134,14 +134,16 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @version 1.0.0
  */
 
-var Menu = exports.Menu = function Menu(user) {
-    _classCallCheck(this, Menu);
+var Menu = exports.Menu = function Menu() {
+  var user = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    $('[Id="navbarDropdown"]').html(user.getUserName());
-    $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton
-    $('[Id="pref"]').html('Mes préfèrences');
-    $('[Id="mdp"]').html('Changer de mot de passe');
-    $('[Id="deco"]').html('Déconnexion');
+  _classCallCheck(this, Menu);
+
+  $('[Id="navbarDropdown"]').html(user.getUserName());
+  $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton
+  $('[Id="pref"]').html('Mes préfèrences');
+  $('[Id="mdp"]').html('Changer de mot de passe');
+  $('[Id="deco"]').html('Déconnexion');
 };
 
 /***/ }),
@@ -783,19 +785,17 @@ var LoginController = exports.LoginController = function () {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.LogOutController = undefined;
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @name LogOutController
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @desc Contrôleur pour la gestion du formulaire de login
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @author Aelion
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @version 1.0.0
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
-
-
-var _login = __webpack_require__(/*! ../../src/user/login.class */ "./src/user/login.class.js");
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LogOutController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
 
 var LogOutController = exports.LogOutController = function () {
     function LogOutController() {
@@ -803,10 +803,10 @@ var LogOutController = exports.LogOutController = function () {
 
         localStorage.clear();
         console.log('Deconnexion !');
-        this.view = './src/user/login/views/loginForm.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+        this.view = './src/user/login/views/loginForm.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL  
 
-        // Intancie la classe login pour la gestion du formulaire
-        //this.login = new Login();
+        $('[Id="navbarDropdown"]').html('Utilisateur');
+        $('[Id="navbarDropdown"]').addClass('disabled'); //active le bouton
     }
 
     /**

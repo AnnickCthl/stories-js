@@ -6,11 +6,16 @@
  */
 
 export class Menu {
-    constructor(user) {
+    constructor(user=null) {
         $('[Id="navbarDropdown"]').html(user.getUserName());
         $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton
         $('[Id="pref"]').html('Mes préfèrences');
         $('[Id="mdp"]').html('Changer de mot de passe');
         $('[Id="deco"]').html('Déconnexion');
     }
+
+ 
+
 }
+
+

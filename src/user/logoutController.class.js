@@ -4,17 +4,15 @@
  * @author Aelion
  * @version 1.0.0
  */
-import { Login } from '../../src/user/login.class';
 
 export class LogOutController {
     constructor() {
         localStorage.clear();
         console.log('Deconnexion !')
-        this.view = './src/user/login/views/loginForm.view.html' //Ici "view" est une chaîne de caractère et on rentre l'URL
-
-        // Intancie la classe login pour la gestion du formulaire
-        //this.login = new Login();
-       
+        this.view = './src/user/login/views/loginForm.view.html' //Ici "view" est une chaîne de caractère et on rentre l'URL  
+      
+        $('[Id="navbarDropdown"]').html('Utilisateur');
+        $('[Id="navbarDropdown"]').addClass('disabled'); //active le bouton
     }
 
     /**
