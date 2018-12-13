@@ -1,16 +1,22 @@
 /**
- * @name LoginController
+ * @name NoRouteCont
  * @desc Contrôleur pour la gestion du formulaire de login
  * @author Aelion
  * @version 1.0.0
  */
-import {Login} from '../login.class'
-export class LoginController {
+import {Toast} from '../toaster/toast.class';
+
+export class NoRouteCont {
     constructor() {
-        this.view = './src/user/login/views/loginForm.view.html' //Ici "view" est une chaîne de caractère et on rentre l'URL
-    
-        // Intancie la classe login pour la gestion du formulaire
-        this.login = new Login();
+        this.view = './src/modules/router/view/noRoute.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+
+        const toast = new Toast(
+            {
+                'message': 'La page n\'existe pas.',
+                'duration': 3 // Les côtes c'est juste pour bien dire que c'est un nouvel attribut (au cas où le "duration" existerait déjà)
+            }
+        );
+        toast.toastIt();
     }
 
     /**
@@ -25,6 +31,4 @@ export class LoginController {
             }
         );
     }
-
-
 }

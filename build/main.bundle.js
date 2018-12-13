@@ -107,7 +107,7 @@ var _route = __webpack_require__(/*! ../../src/modules/router/route.class */ "./
  */
 var router = new _router.Router();
 
-router.add(new _route.Route('/', 'LoginController')).add(new _route.Route('/mystories', 'StoriesController'));
+router.add(new _route.Route('/', 'LoginController')).add(new _route.Route('/mystories', 'StoriesController')).add(new _route.Route('/logout', 'LogOutController'));
 
 /***/ }),
 
@@ -122,7 +122,7 @@ router.add(new _route.Route('/', 'LoginController')).add(new _route.Route('/myst
 
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+  value: true
 });
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -134,15 +134,80 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
  * @version 1.0.0
  */
 
-var Menu = exports.Menu = function Menu(user) {
-    _classCallCheck(this, Menu);
+var Menu = exports.Menu = function Menu() {
+  var user = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
 
-    $('[Id="navbarDropdown"]').html(user.getUserName());
-    $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton
-    $('[Id="pref"]').html('Mes préfèrences');
-    $('[Id="mdp"]').html('Changer de mot de passe');
-    $('[Id="deco"]').html('Déconnexion');
+  _classCallCheck(this, Menu);
+
+  $('[Id="navbarDropdown"]').html(user.getUserName());
+  $('[Id="navbarDropdown"]').removeClass('disabled'); //active le bouton
+  $('[Id="pref"]').html('Mes préfèrences');
+  $('[Id="mdp"]').html('Changer de mot de passe');
+  $('[Id="deco"]').html('Déconnexion');
 };
+
+/***/ }),
+
+/***/ "./src/modules/router/noRouteCont.class.js":
+/*!*************************************************!*\
+  !*** ./src/modules/router/noRouteCont.class.js ***!
+  \*************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+exports.NoRouteCont = undefined;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @name NoRouteCont
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @desc Contrôleur pour la gestion du formulaire de login
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @author Aelion
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * @version 1.0.0
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+
+
+var _toast = __webpack_require__(/*! ../toaster/toast.class */ "./src/modules/toaster/toast.class.js");
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NoRouteCont = exports.NoRouteCont = function () {
+    function NoRouteCont() {
+        _classCallCheck(this, NoRouteCont);
+
+        this.view = './src/modules/router/view/noRoute.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL
+
+        var toast = new _toast.Toast({
+            'message': 'La page n\'existe pas.',
+            'duration': 3 // Les côtes c'est juste pour bien dire que c'est un nouvel attribut (au cas où le "duration" existerait déjà)
+        });
+        toast.toastIt();
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(NoRouteCont, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return NoRouteCont;
+}();
 
 /***/ }),
 
@@ -236,11 +301,16 @@ var _storiesController = __webpack_require__(/*! ../../stories/storiesController
 
 var _userServices = __webpack_require__(/*! ./../../services/user-services.class */ "./src/services/user-services.class.js");
 
+var _noRouteCont = __webpack_require__(/*! ./noRouteCont.class */ "./src/modules/router/noRouteCont.class.js");
+
+var _logoutController = __webpack_require__(/*! ../../user/logoutController.class */ "./src/user/logoutController.class.js");
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var controllers = { //Contient touts les classes "Controller".
     LoginController: _loginController.LoginController,
-    StoriesController: _storiesController.StoriesController
+    StoriesController: _storiesController.StoriesController,
+    LogOutController: _logoutController.LogOutController
 };
 
 var Router = exports.Router = function () {
@@ -281,6 +351,8 @@ var Router = exports.Router = function () {
 
             if (!route) {
                 // Aucun contrôleur associé à cette route
+                console.log('Je passe par là');
+                controller = new _noRouteCont.NoRouteCont();
             } else {
                 if (url === '/') {
                     // On vérifie l'utilisateur
@@ -311,8 +383,9 @@ var Router = exports.Router = function () {
                     }
                 }
                 // A la fin, on charge la vue
-                controller.getView();
             }
+            console.log('Je passe par le getView');
+            controller.getView();
         }
     }]);
 
@@ -453,6 +526,15 @@ var UserService = exports.UserService = function () {
                 return true;
             }
             return false;
+        }
+    }, {
+        key: 'getUser',
+        value: function getUser() {
+            var localUser = JSON.parse(localStorage.getItem('storiesUser'));
+            var user = new User();
+            user.steUserName(localUser.userName);
+            user.group = localUser.group;
+            return user;
         }
     }]);
 
@@ -686,6 +768,66 @@ var LoginController = exports.LoginController = function () {
     }]);
 
     return LoginController;
+}();
+
+/***/ }),
+
+/***/ "./src/user/logoutController.class.js":
+/*!********************************************!*\
+  !*** ./src/user/logoutController.class.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+/**
+ * @name LogOutController
+ * @desc Contrôleur pour la gestion du formulaire de login
+ * @author Aelion
+ * @version 1.0.0
+ */
+
+var LogOutController = exports.LogOutController = function () {
+    function LogOutController() {
+        _classCallCheck(this, LogOutController);
+
+        localStorage.clear();
+        console.log('Deconnexion !');
+        this.view = './src/user/login/views/loginForm.view.html'; //Ici "view" est une chaîne de caractère et on rentre l'URL  
+
+        $('[Id="navbarDropdown"]').html('Utilisateur');
+        $('[Id="navbarDropdown"]').addClass('disabled'); //active le bouton
+    }
+
+    /**
+     * Méthode pour récupérer la vue à afficher
+     */
+
+
+    _createClass(LogOutController, [{
+        key: 'getView',
+        value: function getView() {
+            $.get( // Méthode jquery qui permet de faire un "fech" d'un fichier
+            this.view, // URL du dossier à récupérer 
+            function (viewContent) {
+                // On met le contenu dans viewContent
+                //   console.log(viewContent); // test
+                $('[app]').html(viewContent);
+            });
+        }
+    }]);
+
+    return LogOutController;
 }();
 
 /***/ }),
